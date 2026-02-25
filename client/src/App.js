@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Login from "./Pages/Login";
 import Dashboard from "./Pages/Dashboard";
-import Ask from "./pages/Ask";
+import Ask from "./Pages/Ask";
 import Category from "./Pages/Category";
 import Register from './Pages/Register'
 function App(){
