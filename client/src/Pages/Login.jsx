@@ -1,6 +1,7 @@
 import {useNavigate,Link} from "react-router-dom";
 import {useState} from "react";
-import api from "../api";
+import axios from "axios";
+
 
 export default function Login(){
 
@@ -15,13 +16,13 @@ e.preventDefault();
 
 try{
 
-const res=await api.post("/auth/login",{email,password});
-
+const res=await axios.post("/auth/login",{email,password});
 localStorage.setItem("user",res.data.id);
 
 nav("/dashboard");
 
-}catch{
+}catch(err){
+console.error(err.response?.data);
 
 alert("Invalid login");
 
