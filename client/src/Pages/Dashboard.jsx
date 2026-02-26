@@ -7,22 +7,17 @@ export default function Dashboard(){
 const [cats,setCats]=useState([]);
 
 useEffect(()=>{
-axios.get("/categories")
+axios.get("http://localhost:4000/categories")
 .then(r=>setCats(Array.isArray(r.data)?r.data:[]))
 .catch(()=>setCats([]));
 },[]);
-
-
-/* PROFESSOR SAFE DESCRIPTIONS */
-const descriptions={
-
-};
 
 return(
 
 <div className="container mt-4">
 
-<h2 className="mb-4"></h2>
+<h2 className="mb-4">🌱 GardenHub Forum</h2>
+<p className="lead mb-4">Welcome to GardenHub - Your community for all things gardening!</p>
 
 <div className="row">
 
@@ -35,11 +30,11 @@ return(
 <h4 className="fw-bold">{c.name}</h4>
 
 <p className="text-muted mt-2">
-{descriptions[c.name] || ""}
+{c.description || ""}
 </p>
 
 <Link
-className="btn btn-dark mt-2"
+className="btn btn-success mt-2"
 to={"/category/"+c.id}
 >
 Enter the Discussion
