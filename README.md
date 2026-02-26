@@ -153,3 +153,4 @@ This application follows a **3-Tier Architecture**:
 ---
 
 **Built with 🌱 by the GardenHub Team**
+Author: Kyran Detamore [https://www.linkedin.com/in/kyran-detamore/]
