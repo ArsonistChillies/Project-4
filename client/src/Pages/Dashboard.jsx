@@ -1,13 +1,13 @@
 import {useEffect,useState} from "react";
-import api from "../api";
 import {Link} from "react-router-dom";
+import axios from "axios";
 
 export default function Dashboard(){
 
 const [cats,setCats]=useState([]);
 
 useEffect(()=>{
-api.get("/categories")
+axios.get("/categories")
 .then(r=>setCats(Array.isArray(r.data)?r.data:[]))
 .catch(()=>setCats([]));
 },[]);
