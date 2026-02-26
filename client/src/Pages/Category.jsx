@@ -1,6 +1,7 @@
 import {useParams,Link} from "react-router-dom";
 import {useEffect,useState} from "react";
-import api from "../api";
+import axios from "axios";
+
 
 export default function Category(){
 
@@ -12,14 +13,14 @@ const [catName,setCatName]=useState("");
 // LOAD QUESTIONS FOR THIS CATEGORY
 useEffect(()=>{
 
-api.get("/questions/category/"+id)
+axios.get("/questions/category/"+id)
 .then(r=>{
 setQuestions(Array.isArray(r.data)?r.data:[]);
 })
 .catch(()=>setQuestions([]));
 
 // OPTIONAL: load category name for header
-api.get("/categories")
+axios.get("/categories")
 .then(r=>{
 const found=r.data.find(c=>String(c.id)===String(id));
 if(found) setCatName(found.name);
