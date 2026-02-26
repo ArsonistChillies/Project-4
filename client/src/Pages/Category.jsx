@@ -13,14 +13,14 @@ const [catName,setCatName]=useState("");
 // LOAD QUESTIONS FOR THIS CATEGORY
 useEffect(()=>{
 
-axios.get("/questions/category/"+id)
+axios.get("http://localhost:4000/questions/category/"+id)
 .then(r=>{
 setQuestions(Array.isArray(r.data)?r.data:[]);
 })
 .catch(()=>setQuestions([]));
 
 // OPTIONAL: load category name for header
-axios.get("/categories")
+axios.get("http://localhost:4000/categories")
 .then(r=>{
 const found=r.data.find(c=>String(c.id)===String(id));
 if(found) setCatName(found.name);
@@ -56,23 +56,27 @@ No questions yet. Be the first to ask!
 {/* QUESTIONS LIST */}
 {questions.map(q=>
 
-<div key={q.id} className="card shadow-sm border-0 mb-3">
+<Link key={q.id} to={"/question/"+q.id} className="text-decoration-none">
+
+<div className="card shadow-sm border-0 mb-3 hover-shadow">
 
 <div className="card-body">
 
-<h5 className="fw-bold">{q.title}</h5>
+<h5 className="fw-bold text-dark">{q.title}</h5>
 
 <p className="text-muted mb-1">
-{q.content}
+{q.content.substring(0, 150)}{q.content.length > 150 ? "..." : ""}
 </p>
 
 <small className="text-secondary">
-Posted {new Date(q.created_at).toLocaleDateString()}
+Posted by {q.author_email || "Anonymous"} on {new Date(q.created_at).toLocaleDateString()}
 </small>
 
 </div>
 
 </div>
+
+</Link>
 
 )}
 
