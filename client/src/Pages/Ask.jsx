@@ -22,13 +22,20 @@ alert("Missing category");
 return;
 }
 
+const userId = localStorage.getItem("userId");
+if(!userId){
+alert("Please log in to post a question");
+nav("/");
+return;
+}
+
 try{
 
-await axios.post("http://localhost:8000/api/questions",{
+await axios.post("http://localhost:4000/questions",{
 title,
 content,
 category_id:categoryId,
-user_id:localStorage.getItem("user")
+user_id:userId
 });
 
 nav("/category/"+categoryId);
@@ -36,7 +43,7 @@ nav("/category/"+categoryId);
 }catch(err){
 
 console.log(err.response?.data);
-alert("Failed to post");
+alert("Failed to post question");
 
 }
 
