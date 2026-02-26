@@ -5,10 +5,11 @@ import Login from "./Pages/Login";
 import Dashboard from "./Pages/Dashboard";
 import Ask from "./Pages/Ask";
 import Category from "./Pages/Category";
-import Register from './Pages/Register'
+import Register from './Pages/Register';
+import Question from './Pages/Question';
 function App(){
 
-const user = localStorage.getItem("user");
+const userId = localStorage.getItem("userId");
 
 return(
 
@@ -21,7 +22,7 @@ return(
 
 <Route 
 path="/" 
-element={user ? <Navigate to="/dashboard"/> : <Login/>}
+element={userId ? <Navigate to="/dashboard"/> : <Login/>}
 />
 
 <Route path="/register" element={<Register/>}/>
@@ -44,6 +45,13 @@ element={
 path="/category/:id" 
 element={
 <Category/>
+}
+/>
+
+<Route 
+path="/question/:id" 
+element={
+<Question/>
 }
 />
 
