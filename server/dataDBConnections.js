@@ -7,7 +7,7 @@ try {
  host: 'localhost',
  user: 'root',
  password: 'Ss04212006.',
- database: 'databaseName'
+ database: 'localhost:3306/stack_overflow_clone'
  })
  console.log ("Connected to database")
 }
