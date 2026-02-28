@@ -13,6 +13,65 @@ A full-stack forum application built with a 3-tier architecture, focused on gard
 5. **Gardening Techniques** - Composting, soil improvement, and sustainable practices
 6. **Pest & Disease Management** - Plant health and treatment methods
 
+## EER Diagram
+
+![EER Diagram](<Images/ERR Diagram.png>)
+
+## Database Schema
+
+-users table
+'''
+  CREATE TABLE users (
+    user_id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    password_hash VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  );
+'''
+
+-categories table
+'''
+  CREATE TABLE categories (
+    category_id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(50) NOT NULL UNIQUE
+  );
+'''
+
+-questions table
+'''
+  CREATE TABLE questions (
+    question_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    category_id INT NOT NULL,
+    title VARCHAR(255) NOT NULL,
+    content TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(user_id),
+    FOREIGN KEY (category_id) REFERENCES categories(category_id)
+  );
+'''
+
+-answers table
+'''
+  CREATE TABLE answers (
+    answer_id INT AUTO_INCREMENT PRIMARY KEY,
+    question_id INT NOT NULL,
+    user_id INT NOT NULL,
+    content TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (question_id) REFERENCES questions(question_id),
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
+  );
+'''
+
+## 📸 Screenshots
+
+![Login Page](<Images/Login Comp.png>)
+![Register Page](<Images/Register Comp.png>)
+![Home Page](<Images/Dashboard Comp.png>)
+![Ask Page](<Images/Discussion Comp.png>)
+
 ## 🏗️ Architecture
 
 This application follows a **3-Tier Architecture**:
@@ -84,40 +143,6 @@ This application follows a **3-Tier Architecture**:
 - jsonwebtoken (JWT)
 - cors
 - dotenv
-
-## 📝 Usage Guide
-
-### 1. Register an Account
-- Navigate to the registration page
-- Enter your email and password (minimum 6 characters)
-- Click "Register"
-
-### 2. Browse Categories
-- After login, you'll see the dashboard with 6 gardening categories
-- Each category shows a description
-- Click "Enter the Discussion" to view questions
-
-### 3. Ask a Question
-- In any category, click "Ask Question"
-- Enter a title and detailed question
-- Submit to post your question
-
-### 4. Answer Questions
-- Click on any question to view details
-- Scroll to the answer form
-- Write your answer and submit
-
-### 5. Logout
-- Click the "Logout" button in the navigation bar
-
-## 🔒 Security Features
-
-- Password hashing with bcrypt (10 salt rounds)
-- JWT token authentication
-- Protected API endpoints
-- SQL injection prevention with parameterized queries
-- Input validation on both client and server
-- CORS configuration
 
 ## 🐛 Troubleshooting
 
