@@ -22,46 +22,57 @@ A full-stack forum application built with a 3-tier architecture, focused on gard
 -users table
 '''
   CREATE TABLE users (
-    user_id INT AUTO_INCREMENT PRIMARY KEY,
-    username VARCHAR(50) NOT NULL UNIQUE,
-    email VARCHAR(100) NOT NULL UNIQUE,
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    email VARCHAR(255) UNIQUE NOT NULL,
     password_hash VARCHAR(255) NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    username VARCHAR(100),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    INDEX idx_email (email)
   );
 '''
 
 -categories table
 '''
   CREATE TABLE categories (
-    category_id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(50) NOT NULL UNIQUE
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(100) NOT NULL,
+    description TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
   );
 '''
 
 -questions table
 '''
   CREATE TABLE questions (
-    question_id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT NOT NULL,
-    category_id INT NOT NULL,
+    id INT PRIMARY KEY AUTO_INCREMENT,
     title VARCHAR(255) NOT NULL,
     content TEXT NOT NULL,
+    user_id INT NOT NULL,
+    category_id INT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(user_id),
-    FOREIGN KEY (category_id) REFERENCES categories(category_id)
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE CASCADE,
+    INDEX idx_category (category_id),
+    INDEX idx_user (user_id),
+    INDEX idx_created (created_at)
   );
 '''
 
 -answers table
 '''
   CREATE TABLE answers (
-    answer_id INT AUTO_INCREMENT PRIMARY KEY,
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    content TEXT NOT NULL,
     question_id INT NOT NULL,
     user_id INT NOT NULL,
-    content TEXT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (question_id) REFERENCES questions(question_id),
-    FOREIGN KEY (user_id) REFERENCES users(user_id)
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (question_id) REFERENCES questions(id) ON DELETE CASCADE,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    INDEX idx_question (question_id),
+    INDEX idx_user (user_id),
+    INDEX idx_created (created_at)
   );
 '''
 
