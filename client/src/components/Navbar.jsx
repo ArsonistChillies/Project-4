@@ -1,13 +1,13 @@
 import { Link, useNavigate } from 'react-router-dom';
 
 export default function Navbar() {
-        const nav=useNavigate();
-        const userId=localStorage.getItem("userId");
-        const userEmail=localStorage.getItem("userEmail");
+    const nav=useNavigate();
+    const userId=localStorage.getItem("userId");
+    const userEmail=localStorage.getItem("userEmail");
 
-        if(!userId) return null;
+    if(!userId) return null;
 
-        function logout(){
+    function logout(){
         localStorage.removeItem("userId");
         localStorage.removeItem("token");
         localStorage.removeItem("userEmail");
